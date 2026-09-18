@@ -8,7 +8,7 @@ import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 import { AdditionalDataTypes } from './types/common.types';
 import { generateFARR } from './FARR-generator';
 import { FaRR } from './types/FaRR.types';
-import { parseXML } from '@shared/XML-parser';
+import { parseXML, XmlInput } from '@shared/XML-parser';
 import { i18nReady } from './i18n/i18n-init';
 import { generateCorrectivePEF } from './PEF-corrective-generator';
 import { generateBasicPEF } from './PEF-basic-generator';
@@ -18,17 +18,17 @@ import { PEFSpecInvoice } from './types/pef-invoice-spec.types';
 import { generateSpecPEF } from './PEF-spec-generator';
 
 export async function generateInvoice(
-  file: File,
+  file: XmlInput,
   additionalData: AdditionalDataTypes,
   formatType: 'blob'
 ): Promise<Blob>;
 export async function generateInvoice(
-  file: File,
+  file: XmlInput,
   additionalData: AdditionalDataTypes,
   formatType: 'base64'
 ): Promise<string>;
 export async function generateInvoice(
-  file: File,
+  file: XmlInput,
   additionalData: AdditionalDataTypes,
   formatType: FormatType = 'blob'
 ): Promise<FormatTypeResult> {

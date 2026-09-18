@@ -12,6 +12,9 @@ temp
 out
 *.tsbuildinfo
 
+# Azure Functions local configuration may contain secrets.
+azure-function/local.settings.json
+
 .idea
-.vscode
+
 *.swp

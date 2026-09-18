@@ -1,0 +1,24 @@
+{
+  "name": "ksef-pdf-generator-function",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.cjs",
+  "engines": {
+    "node": ">=22 <25"
+  },
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node22 --format=cjs --outfile=dist/index.cjs --external:@azure/functions --external:i18next --external:xml-js --external:pdfmake --external:pdfmake/* --tsconfig=tsconfig.json",
+    "start": "func start",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "i18next": "25.8.4",
+    "pdfmake": "0.3.11",
+    "xml-js": "1.6.11"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "typescript": "5.9.3"
+  }
+}

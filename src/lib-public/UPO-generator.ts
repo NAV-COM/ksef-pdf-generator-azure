@@ -4,12 +4,18 @@ import { TDocumentDefinitions } from 'pdfmake/interfaces';
 import { generateStyle } from '@shared/PDF-functions';
 import { generateDokumentUPO } from './generators/UPO4_3/Dokumenty';
 import { generateNaglowekUPO } from './generators/UPO4_3/Naglowek';
-import { parseXML } from '@shared/XML-parser';
+import { parseXML, XmlInput } from '@shared/XML-parser';
 import { Position } from '@shared/enums/common.enum';
 import i18n from 'i18next';
 import { i18nReady } from './i18n/i18n-init';
 
-export async function generatePDFUPO(file: File): Promise<Blob> {
+export async function generatePDFUPO(file: XmlInput): Promise<Blob>;
+export async function generatePDFUPO(file: XmlInput, formatType: 'blob'): Promise<Blob>;
+export async function generatePDFUPO(file: XmlInput, formatType: 'base64'): Promise<string>;
+export async function generatePDFUPO(
+  file: XmlInput,
+  formatType: 'blob' | 'base64' = 'blob'
+): Promise<Blob | string> {
   const upo = (await parseXML(file)) as Upo;
 
   await i18nReady;
@@ -28,5 +34,7 @@ export async function generatePDFUPO(file: File): Promise<Blob> {
     },
   };
 
-  return pdfMake.createPdf(docDefinition).getBlob();
+  const pdf = pdfMake.createPdf(docDefinition);
+
+  return formatType === 'base64' ? pdf.getBase64() : pdf.getBlob();
 }

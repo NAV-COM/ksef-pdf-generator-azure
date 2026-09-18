@@ -139,3 +139,9 @@ Biblioteka wspiera lokalizację, poprzez użycie biblioteki i18next. Pliki z tł
 ## Ważne!!!
 
 Dodano obsługę faktur PEF - W najbliższym wydaniu będą dostępne na produkcji.
+
+---
+
+## Azure Functions wrapper
+
+A ready HTTP wrapper is included in `azure-function/`. The shared XML parser was changed from `FileReader` to `Blob/ArrayBuffer/TextDecoder`, so the same generator code can run both in a browser and in Node.js/Azure Functions. See `azure-function/README.md`.
